@@ -1,12 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-
+import Header from './Shared/Header';
 import ProductContainer from './Screens/Products/ProductContainer';
 
 export default function App() {
   return (
     <View style={styles.container}>
+      <Header />
       <ProductContainer />
     </View>
   );
@@ -15,7 +16,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#CFF6F8',
     alignItems: 'center',
     justifyContent: 'center',
   },

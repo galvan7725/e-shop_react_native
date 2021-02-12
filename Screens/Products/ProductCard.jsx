@@ -58,7 +58,8 @@ const styles = StyleSheet.create({
   title:{
       fontWeight : 'bold',
       fontSize : 14,
-      textAlign: 'center'
+      textAlign: 'center',
+      marginTop: 70
   },
   price :{
       fontSize: 20,
@@ -69,3 +70,9 @@ const styles = StyleSheet.create({
 
 export default ProductCard;
 
+ProductCard.propTypes = {
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    image: PropTypes.string,
+    countInStock: PropTypes.number.isRequired
+}

@@ -1,18 +1,28 @@
 import React from 'react';
 import { TouchableOpacity, View, Dimensions } from 'react-native';
 import ProductCard from './ProductCard';
+import PropTypes from 'prop-types';
 
 let { width } = Dimensions.get('window');
 
 const ProductList = (props) =>{
-const {item } = props;
+const { item } = props;
 return(
     <TouchableOpacity style={{width: '50%'}}>
-        <View style={{width : width /2, backgroundColor: 'gray'}}>
+        <View style={{width : width /2, backgroundColor: '#CFF6F8'}}>
             <ProductCard {...item} />
         </View>
     </TouchableOpacity>
 )
+}
+
+ProductList.propTypes = {
+    item: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        image: PropTypes.string,
+        countInStock: PropTypes.number.isRequired
+    })
 }
 
 
