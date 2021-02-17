@@ -11,7 +11,7 @@ const ProductCard = (props) => {
         <View style={styles.container}>
             <Image style={styles.image}
             resizeMode = "contain"
-            source={{uri: image ? image : 'https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png'}}
+            source={{uri: image ? image : 'https://i.pinimg.com/originals/f1/47/2c/f1472cd9f017531ed6c575beeeabb368.png'}}
             />
             <View styles={styles.card}/>
             <Text style={styles.title}>
