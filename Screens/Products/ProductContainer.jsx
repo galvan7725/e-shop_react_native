@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import { View ,StyleSheet, ActivityIndicator, FlatList} from 'react-native';
+import { View ,StyleSheet, ActivityIndicator, FlatList, ScrollView} from 'react-native';
 import { Container, Header, Icon, Item, Input, Text } from 'native-base';
 
 import ProductList from './ProductList';
 import SearchedProducts from './SearchedProducts';
+import Banner from '../../Shared/Banner';
 //Example data
 const data =  require('../../assets/data/products.json');
 
@@ -59,19 +60,23 @@ const ProductContainer = () => {
                 productsFiltered = {productsFiltered}
                 />
             ) : (
-                <View>
-                <Text style={{marginTop:0}}>Product Container</Text>
-                <View style={styles.mainContainer}>
-                <FlatList
-                    style={styles.list}
-                    data = {products}
-                    renderItem ={({item}) => <ProductList key={item.id} item ={item}/>}
-                    keyExtractor = {item => item.name}
-                    numColumns = {2}
-                    
-                />
+                <ScrollView>
+                    <View>
+                        <View> 
+                            <Banner />
+                        </View>
+                        <View style={styles.mainContainer}>
+                        <FlatList
+                            style={styles.list}
+                            data = {products}
+                            renderItem ={({item}) => <ProductList key={item.id} item ={item}/>}
+                            keyExtractor = {item => item.name}
+                            numColumns = {2}
+                            
+                        />
                 </View>
             </View>
+                </ScrollView>
             )}
 
             
@@ -82,7 +87,7 @@ const ProductContainer = () => {
 const styles = StyleSheet.create({
     mainContainer : {
         marginTop: 0,
-        height:'100%',
+        //height:'100%',
         marginBottom: 0,
         overflow: 'scroll',
         backgroundColor:'#CFF6F8'
