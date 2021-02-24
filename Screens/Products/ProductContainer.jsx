@@ -1,42 +1,43 @@
 import React, {useState, useEffect} from 'react';
-import { View ,StyleSheet, ActivityIndicator, FlatList, ScrollView} from 'react-native';
+import { View ,StyleSheet, ActivityIndicator, FlatList, ScrollView, SafeAreaView, Keyboard} from 'react-native';
 import { Container, Header, Icon, Item, Input, Text } from 'native-base';
+//custom hooks
+import { useContainer } from '../../Functions/productFunctions/productContainer';
 
 import ProductList from './ProductList';
 import SearchedProducts from './SearchedProducts';
 import Banner from '../../Shared/Banner';
 //Example data
-const data =  require('../../assets/data/products.json');
+//const data =  require('../../assets/data/products.json');
 
 const ProductContainer = () => {
 
-    const [products, setProducts] = useState([]);
-    const [productsFiltered, setProductsFiltered] = useState([]);
-    const [focus, setFocus] = useState(false);
+    const {products, setProducts,productsFiltered, setProductsFiltered,focus, setFocus, textSearch,setTextSearch } = useContainer({
+        initialProducts:[], initialProductsFiltered:[], initialFocus: false, initialTextSearch: ''
+    });
 
-    useEffect(() => {
-        setProducts(data);
-        setProductsFiltered(data);
-        setFocus(false);
-        return () => {
-            setProducts([]);
-            setProductsFiltered([]);
-            setFocus(false);
-        }
-    }, []);
 
     const searchProduct = (text)=>{
+        setTextSearch(text);
+        console.log(textSearch);
         setProductsFiltered(
             products.filter((i)=> i.name.toLowerCase().includes(text.toLowerCase()))
         )
     }
 
     const openList = ()=>{
-        setFocus(true);
+        if(focus){
+
+        }else{
+            setFocus(true);
+        }
+        
     }
 
     const onBlur = ()=>{
         setFocus(false);
+        Keyboard.dismiss();
+
     }
 
     return(
@@ -49,6 +50,8 @@ const ProductContainer = () => {
                     placeholder='Search'
                     onFocus={openList}
                     onChangeText = {(text) => searchProduct(text)}
+                    //onChangeText = {(text) => setTextSearch(text)}
+                    onBlur={onBlur}
                     />
                     {focus == true ? (
                         <Icon onPress={onBlur} name='ios-close' />
@@ -60,23 +63,27 @@ const ProductContainer = () => {
                 productsFiltered = {productsFiltered}
                 />
             ) : (
-                <ScrollView>
-                    <View>
+                <View style={{marginBottom:-50}}>
+                    <ScrollView>
+                        <View style={{height: '100%',marginBottom:0}}>
                         <View> 
                             <Banner />
                         </View>
                         <View style={styles.mainContainer}>
                         <FlatList
+                            ListHeaderComponent={<></>}
                             style={styles.list}
                             data = {products}
                             renderItem ={({item}) => <ProductList key={item.id} item ={item}/>}
                             keyExtractor = {item => item.name}
                             numColumns = {2}
+                            ListFooterComponent={<></>}
                             
                         />
+                    </View>
                 </View>
-            </View>
-                </ScrollView>
+                    </ScrollView>
+                </View>
             )}
 
             
