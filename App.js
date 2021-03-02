@@ -1,6 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{useEffect} from 'react';
-import { StyleSheet, Text, View, LogBox } from 'react-native';
+import { LogBox } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+
+//Navigators
+import Main from './Navigators/Main';
+
+//Screens
 import Header from './Shared/Header';
 import ProductContainer from './Screens/Products/ProductContainer';
 
@@ -12,18 +18,10 @@ export default function App() {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Header />
-      <ProductContainer />
-    </View>
+    <NavigationContainer>
+        <Header />
+        <Main />
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop:0
-  },
-});
