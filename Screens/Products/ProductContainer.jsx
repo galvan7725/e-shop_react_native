@@ -12,7 +12,7 @@ import CategoryFilter from './CategoryFilter';
 //const data =  require('../../assets/data/products.json');
 let {height} = Dimensions.get("window");
 
-const ProductContainer = () => {
+const ProductContainer = (props) => {
 
 
     const {products, setProducts,
@@ -83,6 +83,7 @@ const ProductContainer = () => {
             </Header>
             {focus == true ? (
                 <SearchedProducts 
+                navigation={props.navigation}
                 productsFiltered = {productsFiltered}
                 />
             ) : (
@@ -107,6 +108,7 @@ const ProductContainer = () => {
                                 {productsCtg.map((item)=>{
                                     return(
                                         <ProductList
+                                            navigation={props.navigation}
                                             key={item._id.$oid}
                                             item={item}
                                         />
