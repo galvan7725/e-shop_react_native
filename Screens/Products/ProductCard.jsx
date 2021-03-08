@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
       fontWeight : 'bold',
       fontSize : 14,
       textAlign: 'center',
-      marginTop: 70
+      marginTop: 100
   },
   price :{
       fontSize: 20,

@@ -22,7 +22,7 @@ export default function App() {
   }, []);
 
   return (
-    <Provider>
+    <Provider store={store}>
       <NavigationContainer>
         <Header />
         <Main />

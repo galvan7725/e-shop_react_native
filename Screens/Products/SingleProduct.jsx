@@ -1,6 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import { Image, View, StyleSheet, Text,ScrollView, Button } from 'react-native';
 import { Left, Right, Container, H1 } from 'native-base';
+import PropTypes from 'prop-types';
 
 const SingleProduct = (props) => {
 
@@ -81,6 +82,10 @@ const styles = StyleSheet.create({
         color: 'red'
     }
 })
+
+SingleProduct.propTypes = {
+    route: PropTypes.object.isRequired
+}
 
 
 export default SingleProduct;

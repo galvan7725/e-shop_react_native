@@ -80,7 +80,10 @@ const styles = StyleSheet.create({
 })
 
 CategoryFilter.propTypes = {
-
+    categoryFilter: PropTypes.func.isRequired,
+    setActive: PropTypes.func.isRequired,
+    active: PropTypes.number.isRequired,
+    categories: PropTypes.array.isRequired
 }
 
 export default CategoryFilter;
