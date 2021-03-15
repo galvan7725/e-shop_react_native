@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
 CategoryFilter.propTypes = {
     categoryFilter: PropTypes.func.isRequired,
     setActive: PropTypes.func.isRequired,
-    active: PropTypes.number.isRequired,
+    active: PropTypes.number,
     categories: PropTypes.array.isRequired
 }
 
