@@ -17,7 +17,7 @@ import ProductContainer from './Screens/Products/ProductContainer';
 export default function App() {
 
   useEffect(() => {
-    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+   // LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
    
   }, []);
 
