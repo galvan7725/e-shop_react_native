@@ -3,10 +3,13 @@ import {View, StyleSheet,Dimensions, Button, TouchableOpacity, ScrollView} from 
 import {Text, Container, Left, Right, H1, ListItem, Thumbnail,Body} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import PropTypes from 'prop-types';
+import { SwipeListView } from 'react-native-swipe-list-view';
+import CartItem from './CartItem';
 //redux
 import { connect } from 'react-redux';
 import * as actions from '../../Redux/Actions/cartActions';
 
+const {width} = Dimensions.get('window');
 
 const Cart = (props) =>{
     let total = 0;
@@ -21,35 +24,30 @@ const Cart = (props) =>{
           {cartItems.length > 0 ? (
               <Container>
                   <H1 style={{alignSelf: 'center'}}>Cart</H1>
-                  <ScrollView>
-                  {cartItems.map((item,index) =>{
-                      return (
-                          
-                              <ListItem
-                          style={styles.listItem}
-                          key={index}
-                          avatar
-                          >
-                              <Left>
-                                  <Thumbnail source={{
-                                      uri: item.product.image ? 
-                                      item.product.image : 
-                                      'https://i.pinimg.com/originals/f1/47/2c/f1472cd9f017531ed6c575beeeabb368.png'
-                                  }} />
-                              </Left>
-                              <Body style={styles.body}>
-                                  <Left>
-                                      <Text>{item.product.name}</Text>
-                                  </Left>
-                                  <Right>
-                                      <Text>$ {item.product.price}</Text>
-                                  </Right>
-                              </Body>
-                          </ListItem>
-                          
-                      )
-                  })}
-                  </ScrollView>
+                    <SwipeListView 
+                    data={props.cartItems}
+                    renderItem={(data) =>(
+                        <CartItem item={data}/>
+                    )}
+                    renderHiddenItem={(data) =>(
+                        <View style={styles.hiddeContainer}>
+                            <TouchableOpacity 
+                            style={styles.hiddenButton}
+                            onPress={()=>props.removeFromCart(data.item)}
+                            >
+                                <Icon name="trash" color={"white"} size={30}/>
+                            </TouchableOpacity>
+                        </View>
+                    )}
+                    disableRightSwipe={true}
+                    previewOpenDelay={3000}
+                    friction={1000}
+                    tension={40}
+                    leftOpenValue={75}
+                    stopLeftSwipe={75}
+                    rightOpenValue={-75}
+
+                    />
                   <View style={styles.bottomContainer}>
                     <Left>
                         <Text style={styles.price}>$ {total}</Text>
@@ -85,16 +83,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    listItem:{
-        alignItems: 'center',
-        backgroundColor : 'white',
-        justifyContent: 'center'
-    },
-    body:{
-        margin: 10,
-        alignItems: 'center',
-        flexDirection: 'row'
-    },
+    
     bottomContainer:{
         flexDirection: 'row',
         position:'absolute',
@@ -107,6 +96,19 @@ const styles = StyleSheet.create({
         fontSize: 18,
         margin:20,
         color: 'red'
+    },
+    hiddeContainer:{
+        flex: 1,
+        justifyContent:'flex-end',
+        flexDirection: 'row',
+    },
+    hiddenButton:{
+        backgroundColor: 'red',
+        justifyContent:'center',
+        alignItems:'flex-end',
+        paddingRight:25,
+        height: 70,
+        width: width / 1.2
     }
 })
 
@@ -119,7 +121,8 @@ const mapStateToProps = (state) =>{
 
 mapDispatchToProps = (dispatch) =>{
     return{
-        clearCart: ()=>{ dispatch(actions.clearCart())}
+        clearCart: ()=>{ dispatch(actions.clearCart())},
+        removeFromCart :(item) => dispatch(actions.removeFromCart(item))
     }
 }
 
